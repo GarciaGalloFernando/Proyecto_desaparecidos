@@ -1,0 +1,32 @@
+[
+  {
+    "id": "persona-1",
+    "nombre": "María Fernanda Quispe",
+    "edad": 24,
+    "genero": "Femenino",
+    "departamento": "La Paz",
+    "lugarDesaparicion": "Zona Miraflores",
+    "fechaDesaparicion": "2024-06-12",
+    "estado": "DESAPARECIDO"
+  },
+  {
+    "id": "persona-2",
+    "nombre": "Diego Alejandro Rojas",
+    "edad": 17,
+    "genero": "Masculino",
+    "departamento": "Cochabamba",
+    "lugarDesaparicion": "Av. Blanco Galindo",
+    "fechaDesaparicion": "2024-06-08",
+    "estado": "DESAPARECIDO"
+  },
+  {
+    "id": "persona-3",
+    "nombre": "Sofía Camila Flores",
+    "edad": 31,
+    "genero": "Femenino",
+    "departamento": "Santa Cruz",
+    "lugarDesaparicion": "Barrio Equipetrol",
+    "fechaDesaparicion": "2024-05-27",
+    "estado": "ENCONTRADO"
+  }
+]
