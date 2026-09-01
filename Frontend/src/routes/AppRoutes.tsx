@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 
 import HomePage from "../pages/HomePage";
-import LoginPage from "../pages/auth/loginpage";
+import LoginPage from "../pages/auth/LoginPage";
 
 function AppRoutes() {
   return (

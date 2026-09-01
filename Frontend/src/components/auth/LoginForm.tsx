@@ -4,10 +4,11 @@ import type { LoginCredentials } from "../../types/auth";
 
 interface LoginFormProps {
   error?: string;
-  onSubmit: (credentials: LoginCredentials) => void;
+  isSubmitting: boolean;
+  onSubmit: (credentials: LoginCredentials) => Promise<void>;
 }
 
-function LoginForm({ error, onSubmit }: LoginFormProps) {
+function LoginForm({ error, isSubmitting, onSubmit }: LoginFormProps) {
   const [carnet, setCarnet] = useState("");
   const [password, setPassword] = useState("");
 
@@ -20,7 +21,7 @@ function LoginForm({ error, onSubmit }: LoginFormProps) {
       return;
     }
 
-    onSubmit({
+    void onSubmit({
       carnet: normalizedCarnet,
       password,
     });
@@ -66,7 +67,9 @@ function LoginForm({ error, onSubmit }: LoginFormProps) {
         </p>
       )}
 
-      <button type="submit">Ingresar</button>
+      <button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? "Ingresando..." : "Ingresar"}
+      </button>
     </form>
   );
 }
