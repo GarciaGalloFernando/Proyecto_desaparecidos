@@ -25,4 +25,4 @@ Para un backend externo, cree `Frontend/.env.local`:
 VITE_API_URL=http://localhost:3000/api
 ```
 
-El backend admite `PORT`, `HOST` y `CORS_ORIGIN`, y expone `GET /api/health`.
+El backend admite `PORT`, `HOST` y `CORS_ORIGIN`, y expone `GET /api/health` y `GET /api/personas`.
