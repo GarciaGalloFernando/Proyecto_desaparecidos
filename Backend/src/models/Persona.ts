@@ -1,0 +1,6 @@
+import { Schema, model, type InferSchemaType } from "mongoose";
+export const DEPARTAMENTOS = ["La Paz","Cochabamba","Santa Cruz","Oruro","Potosí","Chuquisaca","Tarija","Beni","Pando"] as const;
+export const ESTADOS_PERSONA = ["DESAPARECIDO","ENCONTRADO","IDENTIFICADO","CASO_CERRADO"] as const;
+const schema = new Schema({ nombre:{type:String,required:true,trim:true}, edad:{type:Number,required:true,min:0,max:130}, genero:{type:String,required:true,enum:["MASCULINO","FEMENINO","OTRO"]}, foto:{type:String,trim:true,default:""}, descripcion:{type:String,trim:true,default:""}, estado:{type:String,required:true,enum:ESTADOS_PERSONA,default:"DESAPARECIDO"}, fecha_desaparicion:{type:Date,required:true}, lugar_desaparicion:{type:String,required:true,trim:true}, departamento:{type:String,required:true,enum:DEPARTAMENTOS}, contacto:{type:String,trim:true,default:""}, publicado_por:{type:Schema.Types.ObjectId,ref:"Admin",required:true}, fecha_registro:{type:Date,default:Date.now}, fecha_actualizacion:{type:Date,default:Date.now} }, {collection:"personas",versionKey:false});
+schema.pre("save", function(next){ this.fecha_actualizacion=new Date(); next(); });
+export type Persona = InferSchemaType<typeof schema>; export const PersonaModel = model("Persona",schema);

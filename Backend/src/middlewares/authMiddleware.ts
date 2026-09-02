@@ -1,0 +1,1 @@
+import type { RequestHandler } from "express"; import passport from "../passport/index.js"; export const requireAuth=passport.authenticate("jwt",{session:false}); export const requireAdmin:RequestHandler=(req,res,next)=>{if(!req.user||!["ADMIN","SUPER_ADMIN"].includes(req.user.rol))return res.status(403).json({message:"No tiene permisos para esta acción."});next();};

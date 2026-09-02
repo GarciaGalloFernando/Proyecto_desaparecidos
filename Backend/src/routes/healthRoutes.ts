@@ -1,0 +1,1 @@
+import { Router } from "express"; import { databaseConnected } from "../config/database.js"; const r=Router();r.get("/",(_q,res)=>{const connected=databaseConnected();res.status(connected?200:503).json({status:connected?"ok":"unavailable",database:connected?"connected":"disconnected"});});export default r;

@@ -1,0 +1,2 @@
+import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt"; import { env } from "../config/env.js"; import { adminRepository } from "../repositories/AdminRepository.js";
+export const jwtStrategy=new JwtStrategy({jwtFromRequest:ExtractJwt.fromAuthHeaderAsBearerToken(),secretOrKey:env.jwtSecret},async(payload,done)=>{try{const admin=await adminRepository.findById(payload.sub);if(!admin||admin.estado!=="ACTIVO")return done(null,false);return done(null,admin);}catch(error){return done(error);}});
