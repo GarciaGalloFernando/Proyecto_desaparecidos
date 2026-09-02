@@ -1,15 +1,26 @@
-# Proyecto desaparecidos
+# Personas Desaparecidas Bolivia
 
-Aplicación con frontend React/Vite y API Node.js. El frontend inicia sesión mediante `POST /api/auth/login`; las credenciales se validan en el backend, no en el navegador.
+Plataforma React/Vite y API REST para la consulta y administración de personas desaparecidas. La API usa Express, TypeScript, MongoDB/Mongoose, Passport Local/JWT y bcrypt. Los archivos `Backend/data/*.json` se conservan solo como referencia histórica y **no se leen en tiempo de ejecución**.
 
-## Ejecutar en Visual Studio Code
-
-Abra dos terminales integradas:
+## Configuración
 
 ```bash
 cd Backend
+cp .env.example .env
+# Configure MONGODB_URI for the desaparecidos_db database and set a strong JWT_SECRET
+npm install
+npm run create-admin -- "Nombre" "1234567" "admin@example.com" "una-clave-segura" ADMIN
 npm run dev
 ```
+
+El proceso del backend no inicia si no puede conectarse a MongoDB. Para producción:
+
+```bash
+npm run build
+npm start
+```
+
+En otra terminal:
 
 ```bash
 cd Frontend
@@ -17,12 +28,14 @@ npm install
 npm run dev
 ```
 
-Abra la URL de Vite (normalmente `http://localhost:5173`). Vite reenvía `/api` a `http://localhost:3000`.
+Vite reenvía `/api` a `http://localhost:3000`. Para una API externa, defina `VITE_API_URL` en `Frontend/.env.local`.
 
-Para un backend externo, cree `Frontend/.env.local`:
+## API
 
-```env
-VITE_API_URL=http://localhost:3000/api
-```
+- `GET /api/health`
+- `GET /api/personas` con filtros `nombre`, `departamento`, `edad`, `edadMin`, `edadMax`, `genero` y `estado`
+- `GET /api/personas/:id`
+- `POST`, `PATCH`, `DELETE /api/personas/:id` (JWT de administrador)
+- `POST /api/auth/login`, `GET /api/auth/me`, `POST /api/auth/logout`
 
-El backend admite `PORT`, `HOST` y `CORS_ORIGIN`, y expone `GET /api/health` y `GET /api/personas`.
+El logout es stateless: invalida la sesión local del cliente; el JWT deja de ser aceptable al expirar, o antes si el administrador se desactiva. Nunca se persisten contraseñas en el navegador ni se devuelven hashes.

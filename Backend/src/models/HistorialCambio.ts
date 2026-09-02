@@ -1,0 +1,2 @@
+import { Schema, model } from "mongoose";
+const schema=new Schema({persona_id:{type:Schema.Types.ObjectId,ref:"Persona",required:true},admin_id:{type:Schema.Types.ObjectId,ref:"Admin",required:true},tipo_cambio:{type:String,enum:["CREACION","MODIFICACION","ELIMINACION"],required:true},descripcion:{type:String,required:true},valor_anterior:{type:Schema.Types.Mixed},valor_nuevo:{type:Schema.Types.Mixed},fecha:{type:Date,default:Date.now}}, {collection:"historial_cambios",versionKey:false}); export const HistorialCambioModel=model("HistorialCambio",schema);
