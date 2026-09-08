@@ -8,7 +8,7 @@ const safe = (a: Express.User) => ({
   carnet: a.carnet,
   email: a.email,
   rol: a.rol,
-  estado: a.estado
+  estado: a.estado,
 });
 
 export const login: RequestHandler = (req, res, next) =>
@@ -20,32 +20,37 @@ export const login: RequestHandler = (req, res, next) =>
       admin: Express.User | false,
       info?: { message?: string }
     ) => {
+
       if (error) {
         return next(error);
       }
 
       if (!admin) {
         return res.status(401).json({
-          message: info?.message ?? "Credenciales inválidas."
+          message: info?.message ?? "Credenciales inválidas.",
         });
       }
 
       return res.json({
         token: signToken({
-          id: String(admin._id),
-          rol: admin.rol
+          sub: String(admin._id),
+          rol: admin.rol,
         }),
-        admin: safe(admin)
+
+        admin: safe(admin),
       });
     }
   )(req, res, next);
 
+
 export const me: RequestHandler = (req, res) =>
   res.json({
-    admin: safe(req.user!)
+    admin: safe(req.user!),
   });
+
 
 export const logout: RequestHandler = (_req, res) =>
   res.json({
-    message: "Sesión cerrada. El cliente debe descartar el token JWT."
+    message:
+      "Sesión cerrada. El cliente debe descartar el token JWT.",
   });

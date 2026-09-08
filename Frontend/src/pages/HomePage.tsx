@@ -175,6 +175,15 @@ function HomePage() {
                   Hola, {usuario.nombre}
                 </span>
 
+                {(usuario.rol === "ADMIN" || usuario.rol === "SUPER_ADMIN") && (
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => navigate("/admin/personas")}
+                  >
+                    Panel administrativo
+                  </button>
+                )}
+
                 <button
                   className="btn btn-outline"
                   onClick={cerrarSesion}

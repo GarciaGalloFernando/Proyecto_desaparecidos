@@ -1,1 +1,15 @@
-import jwt from "jsonwebtoken"; import { env } from "../config/env.js"; export function signToken(admin:{id:string;rol:string}){return jwt.sign({rol:admin.rol},env.jwtSecret,{subject:admin.id,expiresIn:env.jwtExpiresIn as jwt.SignOptions["expiresIn"]});}
+import jwt from "jsonwebtoken";
+import { env } from "../config/env.js";
+
+
+export function signToken(payload: object) {
+
+  return jwt.sign(
+    payload,
+    env.jwtSecret,
+    {
+      expiresIn: "1h",
+    }
+  );
+
+}
