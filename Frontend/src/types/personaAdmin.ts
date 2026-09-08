@@ -1,66 +1,29 @@
-// Tipos del módulo "Gestión de Personas Desaparecidas" (panel administrativo).
-// Este módulo trabaja únicamente con datos MOCK en el frontend, sin backend real.
-
 export type Sexo = "MASCULINO" | "FEMENINO" | "OTRO";
 
-export type EstadoPersona =
-  | "DESAPARECIDA"
-  | "EN_INVESTIGACION"
-  | "ENCONTRADA_VIDA"
-  | "ENCONTRADA_FALLECIDA"
-  | "CASO_CERRADO";
+export type EstadoPersona = "No_localizada" | "Desaparecida" | "encontrada_vida" | "encontrada_fallecida";
 
-export interface EstadoPersonaOption {
-  value: EstadoPersona;
-  label: string;
-}
+export interface EstadoPersonaOption { value: EstadoPersona; label: string; }
 
 export const ESTADOS_PERSONA: EstadoPersonaOption[] = [
-  { value: "DESAPARECIDA", label: "Desaparecida" },
-  { value: "EN_INVESTIGACION", label: "En investigación" },
-  { value: "ENCONTRADA_VIDA", label: "Encontrada con vida" },
-  { value: "ENCONTRADA_FALLECIDA", label: "Encontrada fallecida" },
-  { value: "CASO_CERRADO", label: "Caso cerrado" },
+  { value: "No_localizada", label: "No localizada" },
+  { value: "Desaparecida", label: "Desaparecida" },
+  { value: "encontrada_vida", label: "Encontrada con vida" },
+  { value: "encontrada_fallecida", label: "Encontrada fallecida" },
 ];
 
+export interface PublicadoPor { id?: string; nombre?: string; email?: string; carnet?: string; rol?: string; }
+
 export interface PersonaDesaparecida {
-  id: string;
-  codigo: string;
-  foto?: string;
-
-  // Datos personales
-  nombres: string;
-  apellidoPaterno: string;
-  apellidoMaterno: string;
-  sexo: Sexo;
-  fechaNacimiento: string;
-  edad: number;
-  numeroDocumento?: string;
-  nacionalidad: string;
-
-  // Datos de la desaparición
-  fechaDesaparicion: string;
-  horaAproximada?: string;
-  departamento: string;
-  ciudad: string;
-  zona?: string;
-  direccion: string;
-  circunstancias?: string;
-  ultimoLugarVisto?: string;
-
-  // Datos de sistema (generados por el mock)
-  estado: EstadoPersona;
-  fechaRegistro: string;
-  actualizadoEn: string;
+  id: string; codigo: string; nombre: string; apellidoPaterno: string; apellidoMaterno: string;
+  sexo: Sexo; fechaNacimiento: string; edad: number; numeroDocumento?: string; nacionalidad: string; foto?: string;
+  fechaDesaparicion: string; horaAproximada?: string; departamento: string; ciudad: string; zona?: string;
+  circunstancias?: string; ultimoLugarVisto?: string;
+  estado: EstadoPersona; publicadoPor?: PublicadoPor | null; fechaRegistro: string; fechaActualizacion: string;
+  nombreReportante?: string; documentoReportante?: string; parentesco?: string; correoReportante?: string; contactoReportante?: string;
 }
 
-// Datos que se editan desde el formulario de registro/edición.
-// El estado se administra aparte, mediante la acción "Cambiar estado".
-export type PersonaFormData = Omit<
-  PersonaDesaparecida,
-  "id" | "codigo" | "estado" | "fechaRegistro" | "actualizadoEn"
->;
+export type PersonaFormData = Omit<PersonaDesaparecida, "id"|"codigo"|"estado"|"publicadoPor"|"fechaRegistro"|"fechaActualizacion">;
 
 export function nombreCompleto(persona: PersonaDesaparecida): string {
-  return `${persona.nombres} ${persona.apellidoPaterno} ${persona.apellidoMaterno}`.trim();
+  return `${persona.nombre} ${persona.apellidoPaterno} ${persona.apellidoMaterno}`.trim();
 }

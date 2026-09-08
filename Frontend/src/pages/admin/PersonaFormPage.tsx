@@ -8,7 +8,7 @@ import type { PersonaFormData, Sexo } from "../../types/personaAdmin";
 
 const FORM_INICIAL: PersonaFormData = {
   foto: "",
-  nombres: "",
+  nombre: "",
   apellidoPaterno: "",
   apellidoMaterno: "",
   sexo: "FEMENINO",
@@ -21,9 +21,13 @@ const FORM_INICIAL: PersonaFormData = {
   departamento: "",
   ciudad: "",
   zona: "",
-  direccion: "",
   circunstancias: "",
   ultimoLugarVisto: "",
+  nombreReportante: "",
+  documentoReportante: "",
+  parentesco: "",
+  correoReportante: "",
+  contactoReportante: "",
 };
 
 function calcularEdad(fechaNacimiento: string): number {
@@ -75,22 +79,26 @@ function PersonaFormPage() {
         setCodigo(persona.codigo);
         setForm({
           foto: persona.foto,
-          nombres: persona.nombres,
+          nombre: persona.nombre,
           apellidoPaterno: persona.apellidoPaterno,
           apellidoMaterno: persona.apellidoMaterno,
           sexo: persona.sexo,
-          fechaNacimiento: persona.fechaNacimiento,
+          fechaNacimiento: persona.fechaNacimiento?.slice(0, 10) ?? "",
           edad: persona.edad,
           numeroDocumento: persona.numeroDocumento,
           nacionalidad: persona.nacionalidad,
-          fechaDesaparicion: persona.fechaDesaparicion,
+          fechaDesaparicion: persona.fechaDesaparicion?.slice(0, 10) ?? "",
           horaAproximada: persona.horaAproximada,
           departamento: persona.departamento,
           ciudad: persona.ciudad,
           zona: persona.zona,
-          direccion: persona.direccion,
           circunstancias: persona.circunstancias,
-          ultimoLugarVisto: persona.ultimoLugarVisto,
+          ultimoLugarVisto: persona.ultimoLugarVisto ?? "",
+          nombreReportante: persona.nombreReportante ?? "",
+          documentoReportante: persona.documentoReportante ?? "",
+          parentesco: persona.parentesco ?? "",
+          correoReportante: persona.correoReportante ?? "",
+          contactoReportante: persona.contactoReportante ?? "",
         });
       } catch (err) {
         if (!cancelado) {
@@ -140,7 +148,7 @@ function PersonaFormPage() {
     setError("");
 
     const camposRequeridos: Array<[keyof PersonaFormData, string]> = [
-      ["nombres", "Nombres"],
+      ["nombre", "Nombres"],
       ["apellidoPaterno", "Apellido paterno"],
       ["apellidoMaterno", "Apellido materno"],
       ["fechaNacimiento", "Fecha de nacimiento"],
@@ -148,7 +156,11 @@ function PersonaFormPage() {
       ["fechaDesaparicion", "Fecha de desaparición"],
       ["departamento", "Departamento"],
       ["ciudad", "Ciudad / Municipio"],
-      ["direccion", "Dirección o lugar exacto"],
+      ["nombreReportante", "Nombre del reportante"],
+      ["documentoReportante", "Documento del reportante"],
+      ["parentesco", "Parentesco"],
+      ["correoReportante", "Correo del reportante"],
+      ["contactoReportante", "Contacto del reportante"],
     ];
 
     const faltante = camposRequeridos.find(([campo]) => !String(form[campo] ?? "").trim());
@@ -229,12 +241,12 @@ function PersonaFormPage() {
 
           <div className="admin-form-grid">
             <div className="field-group">
-              <label htmlFor="nombres">Nombres</label>
+              <label htmlFor="nombre">Nombres</label>
               <input
-                id="nombres"
+                id="nombre"
                 type="text"
-                value={form.nombres}
-                onChange={(event) => setCampo("nombres", event.target.value)}
+                value={form.nombre}
+                onChange={(event) => setCampo("nombre", event.target.value)}
                 required
               />
             </div>
@@ -384,18 +396,7 @@ function PersonaFormPage() {
               />
             </div>
 
-            <div className="field-group admin-form-span-2">
-              <label htmlFor="direccion">Dirección o lugar exacto</label>
-              <input
-                id="direccion"
-                type="text"
-                value={form.direccion}
-                onChange={(event) => setCampo("direccion", event.target.value)}
-                required
-              />
-            </div>
-
-            <div className="field-group admin-form-span-2">
+<div className="field-group admin-form-span-2">
               <label htmlFor="ultimoLugarVisto">Último lugar donde fue vista/o</label>
               <input
                 id="ultimoLugarVisto"
@@ -413,6 +414,37 @@ function PersonaFormPage() {
                 value={form.circunstancias}
                 onChange={(event) => setCampo("circunstancias", event.target.value)}
               />
+            </div>
+          </div>
+        </section>
+
+        <section className="admin-form-section">
+          <h2>Datos de quien reporta</h2>
+          <div className="admin-form-grid">
+            <div className="field-group">
+              <label htmlFor="nombreReportante">Nombre del reportante</label>
+              <input id="nombreReportante" type="text" value={form.nombreReportante}
+                onChange={(event) => setCampo("nombreReportante", event.target.value)} required />
+            </div>
+            <div className="field-group">
+              <label htmlFor="documentoReportante">Documento del reportante</label>
+              <input id="documentoReportante" type="text" value={form.documentoReportante}
+                onChange={(event) => setCampo("documentoReportante", event.target.value)} required />
+            </div>
+            <div className="field-group">
+              <label htmlFor="parentesco">Parentesco</label>
+              <input id="parentesco" type="text" value={form.parentesco}
+                onChange={(event) => setCampo("parentesco", event.target.value)} required />
+            </div>
+            <div className="field-group">
+              <label htmlFor="correoReportante">Correo del reportante</label>
+              <input id="correoReportante" type="email" value={form.correoReportante}
+                onChange={(event) => setCampo("correoReportante", event.target.value)} required />
+            </div>
+            <div className="field-group admin-form-span-2">
+              <label htmlFor="contactoReportante">Contacto del reportante</label>
+              <input id="contactoReportante" type="tel" value={form.contactoReportante}
+                onChange={(event) => setCampo("contactoReportante", event.target.value)} required />
             </div>
           </div>
         </section>

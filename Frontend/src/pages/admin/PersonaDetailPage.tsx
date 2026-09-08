@@ -166,7 +166,7 @@ function PersonaDetailPage() {
           <section className="admin-form-section">
             <h2>Datos personales</h2>
             <div className="person-details admin-detail-grid">
-              <Dato etiqueta="Nombres" valor={persona.nombres} />
+              <Dato etiqueta="Nombres" valor={persona.nombre} />
               <Dato etiqueta="Apellido paterno" valor={persona.apellidoPaterno} />
               <Dato etiqueta="Apellido materno" valor={persona.apellidoMaterno} />
               <Dato etiqueta="Sexo" valor={SEXO_LABEL[persona.sexo]} />
@@ -185,7 +185,6 @@ function PersonaDetailPage() {
               <Dato etiqueta="Departamento" valor={persona.departamento} />
               <Dato etiqueta="Ciudad / Municipio" valor={persona.ciudad} />
               <Dato etiqueta="Zona" valor={persona.zona} />
-              <Dato etiqueta="Dirección o lugar exacto" valor={persona.direccion} />
               <Dato etiqueta="Último lugar donde fue vista/o" valor={persona.ultimoLugarVisto} />
             </div>
 
@@ -198,10 +197,22 @@ function PersonaDetailPage() {
           </section>
 
           <section className="admin-form-section">
+            <h2>Datos de quien reporta</h2>
+            <div className="person-details admin-detail-grid">
+              <Dato etiqueta="Nombre del reportante" valor={persona.nombreReportante} />
+              <Dato etiqueta="Documento del reportante" valor={persona.documentoReportante} />
+              <Dato etiqueta="Parentesco" valor={persona.parentesco} />
+              <Dato etiqueta="Correo del reportante" valor={persona.correoReportante} />
+              <Dato etiqueta="Contacto del reportante" valor={persona.contactoReportante} />
+            </div>
+          </section>
+
+          <section className="admin-form-section">
             <h2>Datos de registro</h2>
             <div className="person-details admin-detail-grid">
+              <Dato etiqueta="Publicado por" valor={persona.publicadoPor?.nombre} />
               <Dato etiqueta="Fecha de registro" valor={formatearFechaHora(persona.fechaRegistro)} />
-              <Dato etiqueta="Última actualización" valor={formatearFechaHora(persona.actualizadoEn)} />
+              <Dato etiqueta="Última actualización" valor={formatearFechaHora(persona.fechaActualizacion)} />
             </div>
           </section>
         </div>

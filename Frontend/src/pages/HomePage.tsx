@@ -20,11 +20,11 @@ const DEPARTAMENTOS = [
 ];
 
 const ESTADOS = [
-  "DESAPARECIDO",
-  "ENCONTRADO",
-  "IDENTIFICADO",
-  "CASO_CERRADO",
-];
+  "No_localizada",
+  "Desaparecida",
+  "encontrada_vida",
+  "encontrada_fallecida",
+] as const;
 
 function HomePage() {
   const navigate = useNavigate();
@@ -507,7 +507,13 @@ function HomePage() {
                       <span
                         className={`status-badge status-${persona.estado?.toLowerCase()}`}
                       >
-                        {persona.estado?.replaceAll("_", " ")}
+                        {persona.estado === "No_localizada"
+                          ? "No localizada"
+                          : persona.estado === "Desaparecida"
+                            ? "Desaparecida"
+                            : persona.estado === "encontrada_vida"
+                              ? "Encontrada con vida"
+                              : "Encontrada fallecida"}
                       </span>
 
                     </div>
@@ -534,9 +540,9 @@ function HomePage() {
                         <div>
                           <span>Fecha</span>
                           <strong>
-                            {persona.fecha_desaparicion
+                            {persona.fechaDesaparicion
                               ? new Date(
-                                  persona.fecha_desaparicion,
+                                  persona.fechaDesaparicion,
                                 ).toLocaleDateString("es-BO")
                               : "No disponible"}
                           </strong>

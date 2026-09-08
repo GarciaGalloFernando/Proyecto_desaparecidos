@@ -58,7 +58,7 @@ function AdminLayout() {
 
         <div className="admin-sidebar-footer">
           <p>
-            Datos de prueba (mock). Sin conexión a backend real todavía.
+            Los registros se gestionan directamente mediante el backend y MongoDB.
           </p>
         </div>
       </aside>
