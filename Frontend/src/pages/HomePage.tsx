@@ -20,10 +20,10 @@ const DEPARTAMENTOS = [
 ];
 
 const ESTADOS = [
-  "No_localizada",
-  "Desaparecida",
-  "encontrada_vida",
-  "encontrada_fallecida",
+  { value: "NO_LOCALIZADA", label: "No localizada" },
+  { value: "DESAPARECIDA", label: "Desaparecida" },
+  { value: "ENCONTRADA_VIDA", label: "Encontrada con vida" },
+  { value: "ENCONTRADA_FALLECIDA", label: "Encontrada fallecida" },
 ] as const;
 
 function HomePage() {
@@ -391,10 +391,10 @@ function HomePage() {
 
                   {ESTADOS.map((item) => (
                     <option
-                      key={item}
-                      value={item}
+                      key={item.value}
+                      value={item.value}
                     >
-                      {item.replace("_", " ")}
+                      {item.label}
                     </option>
                   ))}
                 </select>
@@ -507,11 +507,11 @@ function HomePage() {
                       <span
                         className={`status-badge status-${persona.estado?.toLowerCase()}`}
                       >
-                        {persona.estado === "No_localizada"
+                        {persona.estado?.toUpperCase() === "NO_LOCALIZADA"
                           ? "No localizada"
-                          : persona.estado === "Desaparecida"
+                          : persona.estado?.toUpperCase() === "DESAPARECIDA"
                             ? "Desaparecida"
-                            : persona.estado === "encontrada_vida"
+                            : persona.estado?.toUpperCase() === "ENCONTRADA_VIDA"
                               ? "Encontrada con vida"
                               : "Encontrada fallecida"}
                       </span>

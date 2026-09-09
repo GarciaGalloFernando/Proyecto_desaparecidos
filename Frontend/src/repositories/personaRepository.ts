@@ -7,6 +7,7 @@ export type Persona = {
   fechaDesaparicion: string; horaAproximada?: string; departamento: string; ciudad: string;
   zona?: string; circunstancias?: string; ultimoLugarVisto?: string;
   estado: "No_localizada" | "Desaparecida" | "encontrada_vida" | "encontrada_fallecida";
+  nombreReportante?: string; contactoReportante?: string; correoReportante?: string;
   publicadoPor?: { nombre?: string } | null; fechaRegistro: string; fechaActualizacion: string;
 };
 
