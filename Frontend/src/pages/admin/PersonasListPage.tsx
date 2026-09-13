@@ -60,6 +60,8 @@ function PersonasListPage() {
       setLoading(true);
       setError("");
       const resultado = await personaAdminRepository.listar();
+      console.log("PERSONAS RECIBIDAS DEL BACKEND:", resultado);
+      console.log("CANTIDAD RECIBIDA:", resultado.length);
       setPersonas(resultado);
     } catch (err) {
       setError(
