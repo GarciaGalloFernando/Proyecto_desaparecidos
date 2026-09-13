@@ -3,7 +3,7 @@ import type { LoginCredentials, Session, User } from "../types/auth";
 
 const SESSION_KEY = "app_session";
 
-const API_URL = "/api";
+const API_URL = import.meta.env.VITE_API_URL ?? "/api";
 
 export const authRepository = {
   async login(credentials: LoginCredentials): Promise<User> {
