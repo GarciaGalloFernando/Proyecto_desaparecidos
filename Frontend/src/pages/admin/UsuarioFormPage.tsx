@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import type { FormEventHandler } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 
+import { authRepository } from "../../repositories/authRepository";
 import { usuarioAdminRepository } from "../../repositories/usuarioAdminRepository";
 import { ROLES_USUARIO, type RolUsuario, type UsuarioFormData } from "../../types/usuarioAdmin";
 
@@ -17,6 +18,12 @@ function UsuarioFormPage() {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const modoEdicion = Boolean(id);
+
+  // Solo un SUPER_ADMIN puede crear usuarios nuevos. Editar un usuario
+  // existente sí queda permitido para ADMIN (por ejemplo, para cambiar su
+  // propio nombre o correo), pero la creación queda restringida.
+  const usuarioActual = authRepository.getCurrentUser();
+  const puedeCrear = usuarioActual?.rol === "SUPER_ADMIN";
 
   const [form, setForm] = useState<UsuarioFormData>(FORM_INICIAL);
   const [confirmarPassword, setConfirmarPassword] = useState("");
@@ -66,6 +73,12 @@ function UsuarioFormPage() {
       cancelado = true;
     };
   }, [id]);
+
+  // Si no está en modo edición (o sea, está creando) y no es SUPER_ADMIN,
+  // lo mandamos de vuelta a la lista antes de mostrar el formulario.
+  if (!modoEdicion && !puedeCrear) {
+    return <Navigate to="/admin/usuarios" replace />;
+  }
 
   const setCampo = <K extends keyof UsuarioFormData>(campo: K, valor: UsuarioFormData[K]) => {
     setForm((prev) => ({ ...prev, [campo]: valor }));

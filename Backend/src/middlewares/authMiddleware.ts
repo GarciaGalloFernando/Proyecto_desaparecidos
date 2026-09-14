@@ -35,3 +35,16 @@ export const requireAdmin: RequestHandler = (req, res, next) => {
 
   next();
 };
+
+export const requireSuperAdmin: RequestHandler = (req, res, next) => {
+  if (
+    !req.user ||
+    req.user.rol !== "SUPER_ADMIN"
+  ) {
+    return res.status(403).json({
+      message: "Solo un Super Administrador puede realizar esta acción."
+    });
+  }
+
+  next();
+};
