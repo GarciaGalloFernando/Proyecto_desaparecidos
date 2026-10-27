@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import type { FormEventHandler } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { DEPARTAMENTOS } from "../../constants/ubicaciones";
+import { distritos } from "../../constants/ubicaciones";
 import { personaAdminRepository } from "../../repositories/personaAdminRepository";
 import type { PersonaFormData, Sexo } from "../../types/personaAdmin";
 
@@ -18,8 +18,8 @@ const FORM_INICIAL: PersonaFormData = {
   nacionalidad: "Boliviana",
   fechaDesaparicion: "",
   horaAproximada: "",
-  departamento: "",
-  ciudad: "",
+  distrito: "",
+  ciudad: "Sucre",
   zona: "",
   circunstancias: "",
   ultimoLugarVisto: "",
@@ -89,7 +89,7 @@ function PersonaFormPage() {
           nacionalidad: persona.nacionalidad,
           fechaDesaparicion: persona.fechaDesaparicion?.slice(0, 10) ?? "",
           horaAproximada: persona.horaAproximada,
-          departamento: persona.departamento,
+          distrito: persona.distrito,
           ciudad: persona.ciudad,
           zona: persona.zona,
           circunstancias: persona.circunstancias,
@@ -154,7 +154,7 @@ function PersonaFormPage() {
       ["fechaNacimiento", "Fecha de nacimiento"],
       ["nacionalidad", "Nacionalidad"],
       ["fechaDesaparicion", "Fecha de desaparición"],
-      ["departamento", "Departamento"],
+      ["distrito", "Distrito"],
       ["ciudad", "Ciudad / Municipio"],
       ["nombreReportante", "Nombre del reportante"],
       ["documentoReportante", "Documento del reportante"],
@@ -359,17 +359,17 @@ function PersonaFormPage() {
             </div>
 
             <div className="field-group">
-              <label htmlFor="departamento">Departamento</label>
+              <label htmlFor="distrito">Distrito</label>
               <select
-                id="departamento"
-                value={form.departamento}
-                onChange={(event) => setCampo("departamento", event.target.value)}
+                id="distrito"
+                value={form.distrito}
+                onChange={(event) => setCampo("distrito", event.target.value)}
                 required
               >
                 <option value="">Seleccione...</option>
-                {DEPARTAMENTOS.map((departamento) => (
-                  <option key={departamento} value={departamento}>
-                    {departamento}
+                {distritos.map((distrito) => (
+                  <option key={distrito} value={distrito}>
+                    {distrito}
                   </option>
                 ))}
               </select>

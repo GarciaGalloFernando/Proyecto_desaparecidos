@@ -16,7 +16,7 @@ export interface PublicadoPor { id?: string; nombre?: string; email?: string; ca
 export interface PersonaDesaparecida {
   id: string; codigo: string; nombre: string; apellidoPaterno: string; apellidoMaterno: string;
   sexo: Sexo; fechaNacimiento: string; edad: number; numeroDocumento?: string; nacionalidad: string; foto?: string;
-  fechaDesaparicion: string; horaAproximada?: string; departamento: string; ciudad: string; zona?: string;
+  fechaDesaparicion: string; horaAproximada?: string; distrito: string; ciudad: string; zona?: string;
   circunstancias?: string; ultimoLugarVisto?: string;
   estado: EstadoPersona; publicadoPor?: PublicadoPor | null; fechaRegistro: string; fechaActualizacion: string;
   nombreReportante?: string; documentoReportante?: string; parentesco?: string; correoReportante?: string; contactoReportante?: string;

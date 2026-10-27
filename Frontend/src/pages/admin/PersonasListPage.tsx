@@ -5,7 +5,7 @@ import ConfirmDialog from "../../components/admin/ConfirmDialog";
 import CambiarEstadoModal from "../../components/admin/CambiarEstadoModal";
 import EstadoBadge from "../../components/admin/EstadoBadge";
 import RowActionsMenu from "../../components/admin/RowActionsMenu";
-import { DEPARTAMENTOS } from "../../constants/ubicaciones";
+import { distritos } from "../../constants/ubicaciones";
 import { personaAdminRepository } from "../../repositories/personaAdminRepository";
 import {
   ESTADOS_PERSONA,
@@ -43,7 +43,7 @@ function PersonasListPage() {
 
   const [busqueda, setBusqueda] = useState("");
   const [filtroEstado, setFiltroEstado] = useState("");
-  const [filtroDepartamento, setFiltroDepartamento] = useState("");
+  const [filtrodistrito, setFiltrodistrito] = useState("");
 
   const [menuAbiertoId, setMenuAbiertoId] = useState<string | null>(null);
 
@@ -86,17 +86,17 @@ function PersonasListPage() {
         persona.codigo.toLowerCase().includes(texto);
 
       const coincideEstado = !filtroEstado || persona.estado === filtroEstado;
-      const coincideDepartamento =
-        !filtroDepartamento || persona.departamento === filtroDepartamento;
+      const coincidedistrito =
+        !filtrodistrito || persona.distrito === filtrodistrito;
 
-      return coincideTexto && coincideEstado && coincideDepartamento;
+      return coincideTexto && coincideEstado && coincidedistrito;
     });
-  }, [personas, busqueda, filtroEstado, filtroDepartamento]);
+  }, [personas, busqueda, filtroEstado, filtrodistrito]);
 
   const limpiarFiltros = () => {
     setBusqueda("");
     setFiltroEstado("");
-    setFiltroDepartamento("");
+    setFiltrodistrito("");
   };
 
   const confirmarEliminar = async () => {
@@ -190,16 +190,16 @@ function PersonasListPage() {
         </div>
 
         <div className="search-field">
-          <label htmlFor="filtro-departamento">Departamento</label>
+          <label htmlFor="filtro-distrito">Distrito</label>
           <select
-            id="filtro-departamento"
-            value={filtroDepartamento}
-            onChange={(event) => setFiltroDepartamento(event.target.value)}
+            id="filtro-distrito"
+            value={filtrodistrito}
+            onChange={(event) => setFiltrodistrito(event.target.value)}
           >
             <option value="">Todos</option>
-            {DEPARTAMENTOS.map((departamento) => (
-              <option key={departamento} value={departamento}>
-                {departamento}
+            {distritos.map((distrito) => (
+              <option key={distrito} value={distrito}>
+                {distrito}
               </option>
             ))}
           </select>
@@ -249,7 +249,7 @@ function PersonasListPage() {
                 <th>Sexo</th>
                 <th>Fecha de desaparición</th>
                 <th>Lugar de desaparición</th>
-                <th>Ciudad / Departamento</th>
+                <th>Ciudad / distrito</th>
                 <th>Fecha de registro</th>
                 <th>Estado</th>
                 <th aria-label="Acciones"></th>
@@ -288,7 +288,7 @@ function PersonasListPage() {
                   <td>
                     {persona.ciudad}
                     <br />
-                    <span className="table-muted">{persona.departamento}</span>
+                    <span className="table-muted">{persona.distrito}</span>
                   </td>
 
                   <td>{formatearFecha(persona.fechaRegistro)}</td>

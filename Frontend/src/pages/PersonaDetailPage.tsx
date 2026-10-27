@@ -98,33 +98,12 @@ function PersonaDetailPage() {
             aria-label="Ir al inicio"
           >
             <span className="brand-logo">
-              <svg viewBox="0 0 64 64" aria-hidden="true">
-                <circle
-                  cx="28"
-                  cy="28"
-                  r="17"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="5"
-                />
-                <path
-                  d="M41 41L55 55"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="5"
-                  strokeLinecap="round"
-                />
-                <circle cx="28" cy="24" r="5" fill="currentColor" />
-                <path
-                  d="M18 38c1.8-6 5.3-9 10-9s8.2 3 10 9"
-                  fill="currentColor"
-                />
-              </svg>
-            </span>
+            <img src="/logo-blanco.png" alt="" />
+          </span>
 
             <span>
               <strong>Personas Desaparecidas</strong>
-              <small>Bolivia</small>
+              <small>Sucre</small>
             </span>
           </button>
 
@@ -200,7 +179,10 @@ function PersonaDetailPage() {
                   </div>
 
                   <div className="admin-form-actions admin-detail-actions">
-                    <button className="btn btn-light" onClick={() => navigate("/")}>
+                    <button
+                      className="btn btn-light"
+                      onClick={() => navigate("/", { state: { irA: "buscar" } })}
+                    >
                       Volver a la búsqueda
                     </button>
                   </div>
@@ -240,7 +222,7 @@ function PersonaDetailPage() {
                           valor={formatearFecha(persona.fechaDesaparicion)}
                         />
                         <Dato etiqueta="Hora aproximada" valor={persona.horaAproximada} />
-                        <Dato etiqueta="Departamento" valor={persona.departamento} />
+                        <Dato etiqueta="Distrito" valor={persona.distrito} />
                         <Dato etiqueta="Ciudad / Municipio" valor={persona.ciudad} />
                         <Dato etiqueta="Zona" valor={persona.zona} />
                         <Dato etiqueta="Último lugar donde fue vista/o" valor={persona.ultimoLugarVisto} />
@@ -278,7 +260,7 @@ function PersonaDetailPage() {
       <footer className="footer">
         <div className="container footer-content">
           <div>
-            <strong>Personas Desaparecidas Bolivia</strong>
+            <strong>Personas Desaparecidas Sucre</strong>
             <p>Sistema de consulta de información.</p>
           </div>
           <p>© 2026 Todos los derechos reservados.</p>

@@ -20,12 +20,7 @@ function AdminLayout() {
           aria-label="Ir al inicio"
         >
           <span className="brand-logo">
-            <svg viewBox="0 0 64 64" aria-hidden="true">
-              <circle cx="28" cy="28" r="17" fill="none" stroke="currentColor" strokeWidth="5" />
-              <path d="M41 41L55 55" fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />
-              <circle cx="28" cy="24" r="5" fill="currentColor" />
-              <path d="M18 38c1.8-6 5.3-9 10-9s8.2 3 10 9" fill="currentColor" />
-            </svg>
+            <img src="/logo.png" alt="" />
           </span>
 
           <span>

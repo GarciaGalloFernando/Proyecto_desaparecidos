@@ -33,7 +33,7 @@ Vite reenvía `/api` a `http://localhost:3000`. Para una API externa, defina `VI
 ## API
 
 - `GET /api/health`
-- `GET /api/personas` con filtros `nombre`, `departamento`, `edad`, `edadMin`, `edadMax`, `genero` y `estado`
+- `GET /api/personas` con filtros `nombre`, `distrito`, `edad`, `edadMin`, `edadMax`, `genero` y `estado`
 - `GET /api/personas/:id`
 - `POST`, `PATCH`, `DELETE /api/personas/:id` (JWT de administrador)
 - `POST /api/auth/login`, `GET /api/auth/me`, `POST /api/auth/logout`

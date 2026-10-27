@@ -1,0 +1,43 @@
+/* =========================================
+   BARRA SUPERIOR DEL PANEL ADMINISTRATIVO
+   (mismo estilo que el encabezado de la página principal)
+========================================= */
+
+.admin-topbar {
+  background: #002552;
+  border-bottom: 0;
+  backdrop-filter: none;
+  box-shadow: 0 3px 8px rgba(0, 20, 50, 0.35);
+}
+
+.admin-topbar .eyebrow {
+  color: #ffffff;
+}
+
+.admin-topbar .user-name,
+.admin-topbar .admin-user > span {
+  color: #dbe6f5;
+}
+
+.admin-topbar .btn-primary {
+  background: #1673c4;
+  box-shadow: none;
+}
+
+.admin-topbar .btn-primary:hover {
+  background: #2b8be0;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.admin-topbar .btn-outline {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.7);
+  color: #ffffff;
+}
+
+.admin-topbar .btn-outline:hover {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #002552;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}

@@ -614,6 +614,7 @@ a {
 
 .results-header h2,
 
+.how-title,
 .information-section h2 {
 
   margin: 0;
@@ -2534,7 +2535,8 @@ a {
 
   .section-heading h2,
 
-  .results-header h2 {
+  .results-header h2,
+  .how-title {
 
     font-size: 30px;
 
@@ -2564,4 +2566,606 @@ a {
 
   }
 
+}
+
+/* ===== Logo más grande (páginas públicas) ===== */
+
+.header .header-content {
+  min-height: 92px;
+}
+
+.header .brand {
+  gap: 16px;
+}
+
+.header .brand-logo {
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.12);
+}
+
+.header .brand-logo svg {
+  width: 46px;
+  height: 46px;
+}
+
+.header .brand strong {
+  font-size: 18px;
+}
+
+.header .brand small {
+  font-size: 13px;
+}
+
+@media (max-width: 640px) {
+  .header .header-content {
+    min-height: 76px;
+  }
+
+  .header .brand-logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+  }
+
+  .header .brand-logo svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .header .brand strong {
+    font-size: 14px;
+  }
+}
+
+/* =========================================
+   MEJORAS VISUALES (logo, botones, hero)
+========================================= */
+
+/* Logo con imagen */
+.brand-logo {
+  overflow: hidden;
+}
+
+.brand-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Botones: cambio de color evidente al pasar el cursor */
+.btn {
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn:focus-visible {
+  outline: 3px solid rgba(22, 115, 196, 0.45);
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  box-shadow: 0 4px 12px rgba(11, 79, 138, 0.22);
+}
+
+.btn-primary:hover {
+  background: #1673c4;
+  box-shadow: 0 8px 20px rgba(22, 115, 196, 0.38);
+}
+
+.btn-outline:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(11, 79, 138, 0.22);
+}
+
+.btn-light:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+  box-shadow: 0 6px 14px rgba(11, 79, 138, 0.14);
+}
+
+/* Navegación con subrayado animado */
+.main-nav a {
+  position: relative;
+  padding: 6px 2px;
+}
+
+.main-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background: #1673c4;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+
+.main-nav a:hover {
+  color: #1673c4;
+}
+
+.main-nav a:hover::after {
+  transform: scaleX(1);
+}
+
+/* Hero más llamativo */
+.hero {
+  background:
+    radial-gradient(circle at 85% 20%, rgba(22, 115, 196, 0.16), transparent 42%),
+    radial-gradient(circle at 5% 95%, rgba(11, 79, 138, 0.10), transparent 40%),
+    linear-gradient(120deg, #edf5fc 0%, #ffffff 55%, #e3effa 100%);
+}
+
+.hero .eyebrow {
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgba(11, 79, 138, 0.09);
+  border: 1px solid rgba(11, 79, 138, 0.18);
+}
+
+.hero h1 span {
+  background: linear-gradient(90deg, var(--primary-dark), #1673c4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Tarjeta "Información centralizada" */
+.hero-card {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.hero-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--primary-dark), #1673c4);
+}
+
+.hero-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 50px rgba(11, 79, 138, 0.18);
+}
+
+.hero-card-icon {
+  width: 104px;
+  height: 104px;
+  margin-bottom: 26px;
+  border-radius: 26px;
+  background: linear-gradient(145deg, #e3effa, #cfe3f6);
+  box-shadow: inset 0 0 0 1px rgba(11, 79, 138, 0.10);
+}
+
+.hero-card-icon svg {
+  width: 70px;
+  height: 70px;
+}
+
+.hero-card h2 {
+  font-size: 28px;
+}
+
+/* =========================================
+   ENCABEZADO AZUL INSTITUCIONAL
+========================================= */
+
+.header {
+  background: #002552;
+  border-bottom: 0;
+  backdrop-filter: none;
+  box-shadow: 0 3px 8px rgba(0, 20, 50, 0.35);
+}
+
+.header .brand strong {
+  color: #ffffff;
+}
+
+.header .brand small {
+  color: #b7c9e2;
+}
+
+.header .brand-logo {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.25);
+}
+
+.header .main-nav a {
+  color: #ffffff;
+}
+
+.header .main-nav a:hover {
+  color: #ffffff;
+}
+
+.header .main-nav a::after {
+  height: 3px;
+  background: #ff8a1f;
+}
+
+.header .user-name {
+  color: #dbe6f5;
+}
+
+.header .btn-primary {
+  background: #1673c4;
+  box-shadow: none;
+}
+
+.header .btn-primary:hover {
+  background: #2b8be0;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.header .btn-outline {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.7);
+  color: #ffffff;
+}
+
+.header .btn-outline:hover {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #002552;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* =========================================
+   LOGO BLANCO EN ENCABEZADO + TARJETA DESTACADA
+========================================= */
+
+/* Logo sin recuadro: solo lupa y persona en blanco sobre el azul del encabezado */
+.header .brand-logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.header .brand-logo img {
+  object-fit: contain;
+}
+
+@media (max-width: 640px) {
+  .header .brand-logo {
+    width: 54px;
+    height: 54px;
+  }
+}
+
+/* Tarjeta "Información centralizada" en azul institucional */
+.hero-card {
+  background: linear-gradient(145deg, #002552 0%, #0b4f8a 60%, #1673c4 100%);
+  border-color: transparent;
+  box-shadow: 0 22px 48px rgba(0, 37, 82, 0.35);
+}
+
+.hero-card::before {
+  height: 6px;
+  background: linear-gradient(90deg, #ff8a1f, #ffb056);
+}
+
+.hero-card::after {
+  content: "";
+  position: absolute;
+  right: -70px;
+  bottom: -70px;
+  z-index: 0;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.07);
+  pointer-events: none;
+}
+
+.hero-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-card:hover {
+  box-shadow: 0 28px 56px rgba(0, 37, 82, 0.45);
+}
+
+.hero-card-icon {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.32);
+}
+
+.hero-card h2 {
+  color: #ffffff;
+  font-size: 30px;
+}
+
+.hero-card p {
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* =========================================
+   AJUSTES: título de la tarjeta y ventana de acceso
+========================================= */
+
+.hero-card h2 {
+  font-size: clamp(22px, 2.2vw, 28px);
+}
+
+/* Ventana de acceso: mismo azul de la tarjeta "Información centralizada" */
+.auth-page {
+  background: linear-gradient(145deg, #002552 0%, #0b4f8a 60%, #1673c4 100%);
+}
+
+.auth-card {
+  position: relative;
+  overflow: hidden;
+  border-color: transparent;
+  box-shadow: 0 26px 56px rgba(0, 20, 50, 0.45);
+}
+
+.auth-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #ff8a1f, #ffb056);
+}
+
+/* =========================================
+   INFORMACIÓN + CÓMO PUBLICAR UN CASO
+========================================= */
+
+#informacion,
+#como-publicar {
+  scroll-margin-top: 92px;
+}
+
+.information-section {
+  background: linear-gradient(135deg, #002552 0%, #0b4f8a 100%);
+}
+
+
+.how-section {
+  padding: 88px 0;
+  background: #ffffff;
+}
+
+.how-title {
+  margin: 0;
+  color: var(--text, #0f172a);
+  font-family: "Playfair Display", Georgia, serif;
+  line-height: 1.2;
+}
+
+.how-line {
+  display: block;
+  width: 72px;
+  height: 6px;
+  margin: 14px 0 18px;
+  border-radius: 4px;
+  background: #ff8a1f;
+}
+
+.how-subtitle {
+  margin: 0 0 36px;
+  color: var(--muted, #64748b);
+  font-size: 17px;
+}
+
+.how-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.how-step {
+  padding: 30px;
+  border: 1px solid #dbe8f5;
+  border-radius: 18px;
+  background: #eef5fc;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.how-step:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(0, 37, 82, 0.12);
+}
+
+.how-step-number {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 18px;
+  border-radius: 50%;
+  background: #d9600a;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.how-step h3 {
+  margin: 0 0 10px;
+  color: var(--text, #0f172a);
+  font-size: 20px;
+}
+
+.how-step p {
+  margin: 0;
+  color: #3d4f66;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.how-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 32px;
+}
+
+.how-actions .btn {
+  min-height: 48px;
+  padding: 0 26px;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.how-notice {
+  margin-top: 32px;
+  padding: 18px 22px;
+  border-left: 5px solid #ff8a1f;
+  border-radius: 10px;
+  background: #fff6ec;
+  color: #5a3a0c;
+  line-height: 1.65;
+}
+
+@media (max-width: 900px) {
+  .how-steps {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+/* =========================================
+   BLOQUE DE INFORMACIÓN + PIE DE PÁGINA UNIFORMES
+========================================= */
+
+.information-section {
+  padding: 56px 0;
+}
+
+.information-content {
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+}
+
+.information-section h2 {
+  font-size: 30px;
+}
+
+.information-cta {
+  min-height: 50px;
+  padding: 0 26px;
+  background: #ff8a1f;
+  color: #00204a;
+  font-size: 15px;
+  text-decoration: none;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+.information-cta:hover {
+  background: #ffa04a;
+  color: #00204a;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35);
+}
+
+.footer {
+  background: #002552;
+  color: #b7c9e2;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.footer-content {
+  min-height: 96px;
+}
+
+.footer strong {
+  font-size: 15px;
+}
+
+.footer p {
+  font-size: 13px;
+}
+
+@media (max-width: 900px) {
+  .information-section {
+    padding: 44px 0;
+  }
+
+  .information-content {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .information-section h2 {
+    font-size: 26px;
+  }
+
+  .information-cta {
+    justify-self: start;
+  }
+
+  .footer-content {
+    min-height: auto;
+  }
+}
+
+/* Descripción del sistema (reemplaza al título del bloque) */
+
+.information-description {
+  max-width: 780px;
+  margin: 14px 0 0;
+  color: #ffffff;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+  .information-description {
+    font-size: 17px;
+  }
+}
+
+/* Al navegar por el menú, el encabezado fijo no debe tapar el inicio de cada sección */
+
+#inicio,
+#buscar,
+#como-publicar,
+#informacion {
+  scroll-margin-top: 92px;
+}
+
+@media (max-width: 640px) {
+  #inicio,
+  #buscar,
+  #como-publicar,
+  #informacion {
+    scroll-margin-top: 76px;
+  }
 }

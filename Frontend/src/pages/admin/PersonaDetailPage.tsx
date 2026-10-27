@@ -182,7 +182,7 @@ function PersonaDetailPage() {
             <div className="person-details admin-detail-grid">
               <Dato etiqueta="Fecha de desaparición" valor={formatearFecha(persona.fechaDesaparicion)} />
               <Dato etiqueta="Hora aproximada" valor={persona.horaAproximada} />
-              <Dato etiqueta="Departamento" valor={persona.departamento} />
+              <Dato etiqueta="Distrito" valor={persona.distrito} />
               <Dato etiqueta="Ciudad / Municipio" valor={persona.ciudad} />
               <Dato etiqueta="Zona" valor={persona.zona} />
               <Dato etiqueta="Último lugar donde fue vista/o" valor={persona.ultimoLugarVisto} />

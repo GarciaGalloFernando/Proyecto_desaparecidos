@@ -3,7 +3,7 @@ import { CounterModel } from "../models/Counter.js";
 import { PersonaModel, type Persona } from "../models/Persona.js";
 
 export type PersonaFilters = {
-  nombre?: string; apellidoPaterno?: string; departamento?: string; ciudad?: string;
+  nombre?: string; apellidoPaterno?: string; distrito?: string; ciudad?: string;
   edad?: string; edadMin?: string; edadMax?: string; sexo?: string; estado?: string;
 };
 
@@ -21,7 +21,7 @@ export const personaRepository = {
     if (filters.nombre) q.nombre = { $regex: filters.nombre, $options: "i" };
     if (filters.apellidoPaterno) q.apellidoPaterno = { $regex: filters.apellidoPaterno, $options: "i" };
     if (filters.ciudad) q.ciudad = { $regex: filters.ciudad, $options: "i" };
-    for (const key of ["departamento","sexo","estado"] as const) if (filters[key]) q[key] = filters[key];
+    for (const key of ["distrito","sexo","estado"] as const) if (filters[key]) q[key] = filters[key];
 
     const age: Record<string, number> = {};
     if (filters.edad) age.$eq = Number(filters.edad);

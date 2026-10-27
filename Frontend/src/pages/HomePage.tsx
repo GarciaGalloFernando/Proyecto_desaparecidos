@@ -1,36 +1,45 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { authRepository } from "../repositories/authRepository";
 import {
   getPersonas,
   type Persona,
 } from "../repositories/personaRepository";
+import { distritos } from "../constants/ubicaciones";
+import { CONTACTO } from "../constants/contacto";
 
-const DEPARTAMENTOS = [
-  "Chuquisaca",
-  "La Paz",
-  "Cochabamba",
-  "Santa Cruz",
-  "Oruro",
-  "Potosí",
-  "Tarija",
-  "Beni",
-  "Pando",
+const PASOS_PUBLICAR = [
+  {
+    titulo: "Envíanos los datos",
+    texto:
+      "Nombre completo, edad, descripción física y vestimenta, fecha y lugar donde fue vista por última vez (distrito y zona), una foto clara y reciente, y un teléfono de contacto.",
+  },
+  {
+    titulo: "Lo verificamos",
+    texto:
+      "Un administrador revisa la información y se comunica contigo para confirmar los datos, evitando publicaciones falsas o duplicadas.",
+  },
+  {
+    titulo: "Se publica y se comparte",
+    texto:
+      "El caso aparece en la plataforma con su ficha de consulta, visible por distrito y estado. Avísanos si la persona es localizada para actualizar el caso.",
+  },
 ];
 
 const ESTADOS = [
-  { value: "NO_LOCALIZADA", label: "No localizada" },
-  { value: "DESAPARECIDA", label: "Desaparecida" },
-  { value: "ENCONTRADA_VIDA", label: "Encontrada con vida" },
-  { value: "ENCONTRADA_FALLECIDA", label: "Encontrada fallecida" },
+  { value: "No_localizada", label: "No localizada" },
+  { value: "Desaparecida", label: "Desaparecida" },
+  { value: "encontrada_vida", label: "Encontrada con vida" },
+  { value: "encontrada_fallecida", label: "Encontrada fallecida" },
 ] as const;
 
 function HomePage() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [nombre, setNombre] = useState("");
-  const [departamento, setDepartamento] = useState("");
+  const [distrito, setDistrito] = useState("");
   const [edad, setEdad] = useState("");
   const [estado, setEstado] = useState("");
 
@@ -51,8 +60,8 @@ function HomePage() {
         filtros.nombre = nombre.trim();
       }
 
-      if (departamento) {
-        filtros.departamento = departamento;
+      if (distrito) {
+        filtros.distrito = distrito;
       }
 
       if (edad) {
@@ -81,6 +90,15 @@ function HomePage() {
     void cargarPersonas();
   }, []);
 
+  // Al volver desde el detalle de una persona, ir directo a la sección indicada
+  useEffect(() => {
+    const destino = (location.state as { irA?: string } | null)?.irA;
+    if (!destino) return;
+
+    document.getElementById(destino)?.scrollIntoView({ block: "start" });
+    navigate(location.pathname, { replace: true, state: null });
+  }, [location.state, location.pathname, navigate]);
+
   const buscar = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     void cargarPersonas();
@@ -88,7 +106,7 @@ function HomePage() {
 
   const limpiarFiltros = () => {
     setNombre("");
-    setDepartamento("");
+    setDistrito("");
     setEdad("");
     setEstado("");
 
@@ -121,50 +139,19 @@ function HomePage() {
             aria-label="Ir al inicio"
           >
             <span className="brand-logo">
-              <svg
-                viewBox="0 0 64 64"
-                aria-hidden="true"
-              >
-                <circle
-                  cx="28"
-                  cy="28"
-                  r="17"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="5"
-                />
-
-                <path
-                  d="M41 41L55 55"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="5"
-                  strokeLinecap="round"
-                />
-
-                <circle
-                  cx="28"
-                  cy="24"
-                  r="5"
-                  fill="currentColor"
-                />
-
-                <path
-                  d="M18 38c1.8-6 5.3-9 10-9s8.2 3 10 9"
-                  fill="currentColor"
-                />
-              </svg>
-            </span>
+            <img src="/logo-blanco.png" alt="" />
+          </span>
 
             <span>
               <strong>Personas Desaparecidas</strong>
-              <small>Bolivia</small>
+              <small>Sucre</small>
             </span>
           </button>
 
           <nav className="main-nav">
             <a href="#inicio">Inicio</a>
             <a href="#buscar">Buscar personas</a>
+            <a href="#como-publicar">Cómo publicar</a>
             <a href="#informacion">Información</a>
           </nav>
 
@@ -217,7 +204,7 @@ function HomePage() {
             <div className="hero-text">
 
               <span className="eyebrow">
-                SISTEMA NACIONAL DE CONSULTA
+                SISTEMA DE CONSULTA
               </span>
 
               <h1>
@@ -227,7 +214,7 @@ function HomePage() {
 
               <p>
                 Consulta información sobre personas desaparecidas,
-                encontradas e identificadas en Bolivia.
+                encontradas e identificadas en la ciudad de Sucre.
               </p>
 
               <button
@@ -329,22 +316,22 @@ function HomePage() {
               </div>
 
               <div className="search-field">
-                <label htmlFor="departamento">
-                  Departamento
+                <label htmlFor="distrito">
+                  Distrito
                 </label>
 
                 <select
-                  id="departamento"
-                  value={departamento}
+                  id="distrito"
+                  value={distrito}
                   onChange={(event) =>
-                    setDepartamento(event.target.value)
+                    setDistrito(event.target.value)
                   }
                 >
                   <option value="">
                     Todos
                   </option>
 
-                  {DEPARTAMENTOS.map((item) => (
+                  {distritos.map((item) => (
                     <option
                       key={item}
                       value={item}
@@ -531,9 +518,9 @@ function HomePage() {
                       <div className="person-details">
 
                         <div>
-                          <span>Departamento</span>
+                          <span>Distrito</span>
                           <strong>
-                            {persona.departamento}
+                            {persona.distrito}
                           </strong>
                         </div>
 
@@ -571,6 +558,71 @@ function HomePage() {
           </div>
         </section>
 
+        {/* ================= CÓMO PUBLICAR ================= */}
+
+        <section
+          id="como-publicar"
+          className="how-section"
+        >
+          <div className="container">
+
+            <h2 className="how-title">
+              ¿Cómo publicar un caso?
+            </h2>
+
+            <span className="how-line" aria-hidden="true" />
+
+            <p className="how-subtitle">
+              Si una persona de tu familia o entorno desapareció en
+              Sucre, así se publica su caso en la plataforma.
+            </p>
+
+            <div className="how-steps">
+              {PASOS_PUBLICAR.map((paso, indice) => (
+                <article key={paso.titulo} className="how-step">
+                  <span className="how-step-number">
+                    {indice + 1}
+                  </span>
+
+                  <h3>{paso.titulo}</h3>
+
+                  <p>{paso.texto}</p>
+                </article>
+              ))}
+            </div>
+
+            <div className="how-actions">
+              <a
+                className="btn btn-primary"
+                href={`https://wa.me/${CONTACTO.whatsapp}?text=${encodeURIComponent(
+                  "Hola, quiero reportar a una persona desaparecida en Sucre.",
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Escribir por WhatsApp
+              </a>
+
+              <a
+                className="btn btn-outline"
+                href={`mailto:${CONTACTO.correo}?subject=${encodeURIComponent(
+                  "Reporte de persona desaparecida en Sucre",
+                )}`}
+              >
+                Enviar un correo
+              </a>
+            </div>
+
+            <div className="how-notice" role="note">
+              <strong>Importante:</strong> este sistema no reemplaza la
+              denuncia oficial. Presenta la denuncia cuanto antes en la
+              FELCC o en la estación policial más cercana; no es necesario
+              esperar 24, 48 o 72 horas. En una emergencia, llama al 110.
+            </div>
+
+          </div>
+        </section>
+
         {/* ================= INFORMACIÓN ================= */}
 
         <section
@@ -584,16 +636,19 @@ function HomePage() {
                 SOBRE EL SISTEMA
               </span>
 
-              <h2>
-                Información organizada para una consulta más rápida.
-              </h2>
+              <p className="information-description">
+                Página web para centralizar y difundir información sobre
+                personas desaparecidas en la ciudad de Sucre. Se pretende
+                implementar para facilitar la búsqueda de información y
+                dar mayor visibilidad a los casos registrados, permitiendo
+                una consulta rápida y sencilla.
+              </p>
             </div>
 
-            <p>
-              Este sistema permite centralizar y consultar
-              información de personas desaparecidas y encontradas,
-              facilitando la búsqueda mediante diferentes filtros.
-            </p>
+            <a className="btn information-cta" href="#buscar">
+              Buscar una persona
+              <span aria-hidden="true">→</span>
+            </a>
 
           </div>
         </section>
@@ -607,7 +662,7 @@ function HomePage() {
 
           <div>
             <strong>
-              Personas Desaparecidas Bolivia
+              Personas Desaparecidas Sucre
             </strong>
 
             <p>

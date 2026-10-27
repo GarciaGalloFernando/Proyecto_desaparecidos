@@ -34,52 +34,19 @@ function serializarPersona(persona: any, incluirReportante = false) {
   return result;
 }
 
+const str = (v: unknown) => (typeof v === "string" ? v : undefined);
+
 export const list: RequestHandler = async (req, res) => {
   const personas = await personaRepository.findAll({
-    nombre:
-      typeof req.query.nombre === "string"
-        ? req.query.nombre
-        : undefined,
-
-    apellidoPaterno:
-      typeof req.query.apellidoPaterno === "string"
-        ? req.query.apellidoPaterno
-        : undefined,
-
-    departamento:
-      typeof req.query.departamento === "string"
-        ? req.query.departamento
-        : undefined,
-
-    ciudad:
-      typeof req.query.ciudad === "string"
-        ? req.query.ciudad
-        : undefined,
-
-    edad:
-      typeof req.query.edad === "string"
-        ? req.query.edad
-        : undefined,
-
-    edadMin:
-      typeof req.query.edadMin === "string"
-        ? req.query.edadMin
-        : undefined,
-
-    edadMax:
-      typeof req.query.edadMax === "string"
-        ? req.query.edadMax
-        : undefined,
-
-    sexo:
-      typeof req.query.sexo === "string"
-        ? req.query.sexo
-        : undefined,
-
-    estado:
-      typeof req.query.estado === "string"
-        ? req.query.estado
-        : undefined,
+    nombre: str(req.query.nombre),
+    apellidoPaterno: str(req.query.apellidoPaterno),
+    distrito: str(req.query.distrito),
+    ciudad: str(req.query.ciudad),
+    edad: str(req.query.edad),
+    edadMin: str(req.query.edadMin),
+    edadMax: str(req.query.edadMax),
+    sexo: str(req.query.sexo),
+    estado: str(req.query.estado),
   });
 
   return res.json(
@@ -92,27 +59,18 @@ export const list: RequestHandler = async (req, res) => {
 export const get: RequestHandler = async (req, res) => {
   const id = req.params.id;
 
-  if (
-    typeof id !== "string" ||
-    !isValidObjectId(id)
-  ) {
-    return res.status(400).json({
-      message: "ID de persona inválido.",
-    });
+  if (typeof id !== "string" || !isValidObjectId(id)) {
+    return res.status(400).json({ message: "ID de persona inválido." });
   }
 
   const persona = await personaRepository.findById(id);
 
   if (!persona) {
-    return res.status(404).json({
-      message: "Persona no encontrada.",
-    });
+    return res.status(404).json({ message: "Persona no encontrada." });
   }
 
   // El detalle público incluye los datos de contacto del reportante.
-  return res.json(
-    serializarPersona(persona, true),
-  );
+  return res.json(serializarPersona(persona, true));
 };
 
 export const create: RequestHandler = async (req, res) => {
@@ -129,40 +87,26 @@ export const create: RequestHandler = async (req, res) => {
     valor_nuevo: persona.toObject(),
   });
 
-  return res.status(201).json(
-    serializarPersona(persona.toObject(), true),
-  );
+  return res.status(201).json(serializarPersona(persona.toObject(), true));
 };
 
 export const update: RequestHandler = async (req, res) => {
   const id = req.params.id;
 
-  if (
-    typeof id !== "string" ||
-    !isValidObjectId(id)
-  ) {
-    return res.status(400).json({
-      message: "ID de persona inválido.",
-    });
+  if (typeof id !== "string" || !isValidObjectId(id)) {
+    return res.status(400).json({ message: "ID de persona inválido." });
   }
 
   const anterior = await personaRepository.findById(id);
 
   if (!anterior) {
-    return res.status(404).json({
-      message: "Persona no encontrada.",
-    });
+    return res.status(404).json({ message: "Persona no encontrada." });
   }
 
-  const persona = await personaRepository.update(
-    id,
-    req.body,
-  );
+  const persona = await personaRepository.update(id, req.body);
 
   if (!persona) {
-    return res.status(404).json({
-      message: "Persona no encontrada.",
-    });
+    return res.status(404).json({ message: "Persona no encontrada." });
   }
 
   await historialCambioRepository.create({
@@ -174,29 +118,20 @@ export const update: RequestHandler = async (req, res) => {
     valor_nuevo: persona,
   });
 
-  return res.json(
-    serializarPersona(persona, true),
-  );
+  return res.json(serializarPersona(persona, true));
 };
 
 export const remove: RequestHandler = async (req, res) => {
   const id = req.params.id;
 
-  if (
-    typeof id !== "string" ||
-    !isValidObjectId(id)
-  ) {
-    return res.status(400).json({
-      message: "ID de persona inválido.",
-    });
+  if (typeof id !== "string" || !isValidObjectId(id)) {
+    return res.status(400).json({ message: "ID de persona inválido." });
   }
 
   const persona = await personaRepository.remove(id);
 
   if (!persona) {
-    return res.status(404).json({
-      message: "Persona no encontrada.",
-    });
+    return res.status(404).json({ message: "Persona no encontrada." });
   }
 
   await historialCambioRepository.create({

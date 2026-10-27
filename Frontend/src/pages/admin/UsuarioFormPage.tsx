@@ -77,7 +77,7 @@ function UsuarioFormPage() {
   // Si no está en modo edición (o sea, está creando) y no es SUPER_ADMIN,
   // lo mandamos de vuelta a la lista antes de mostrar el formulario.
   if (!modoEdicion && !puedeCrear) {
-    return <Navigate to="/admin/usuarios" replace />;
+    return <Navigate to="/admin/usuarios" replace state={{ sinPermiso: true }} />;
   }
 
   const setCampo = <K extends keyof UsuarioFormData>(campo: K, valor: UsuarioFormData[K]) => {

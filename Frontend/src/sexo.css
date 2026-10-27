@@ -1,0 +1,16 @@
+/* =========================================
+   FILTRO DE SEXO + TEXTO DE LA TARJETA
+   (se importa desde HomePage.tsx, carga después de index.css)
+========================================= */
+
+/* Con el campo nuevo, el buscador pasa a 6 columnas (solo pantallas grandes) */
+@media (min-width: 1051px) {
+  .search-box {
+    grid-template-columns: 1.4fr 1fr 0.9fr 0.7fr 1fr auto;
+  }
+}
+
+/* Texto que va después de "Información centralizada": un poco más pequeño */
+.hero-card p {
+  font-size: 18px;
+}

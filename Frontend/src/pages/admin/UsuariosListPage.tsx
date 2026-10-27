@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
+import AvisoDialog from "../../components/admin/AvisoDialog";
 import ConfirmDialog from "../../components/admin/ConfirmDialog";
 import EstadoUsuarioBadge from "../../components/admin/EstadoUsuarioBadge";
 import RolBadge from "../../components/admin/RolBadge";
@@ -19,7 +20,22 @@ function formatearFecha(fecha?: string): string {
 
 function UsuariosListPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const usuarioActual = authRepository.getCurrentUser();
+  const esSuperAdmin = usuarioActual?.rol === "SUPER_ADMIN";
+
+  // El aviso también aparece si el formulario de "nuevo usuario" nos redirigió
+  // aquí porque un administrador intentó entrar directamente a esa ruta.
+  const [avisoSinPermiso, setAvisoSinPermiso] = useState(
+    (location.state as { sinPermiso?: boolean } | null)?.sinPermiso === true,
+  );
+
+  useEffect(() => {
+    if (location.state) {
+      navigate(location.pathname, { replace: true, state: null });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [usuarios, setUsuarios] = useState<UsuarioAdmin[]>([]);
   const [loading, setLoading] = useState(true);
@@ -120,7 +136,13 @@ function UsuariosListPage() {
         <button
           type="button"
           className="btn btn-primary btn-large"
-          onClick={() => navigate("/admin/usuarios/nuevo")}
+          onClick={() => {
+            if (!esSuperAdmin) {
+              setAvisoSinPermiso(true);
+              return;
+            }
+            navigate("/admin/usuarios/nuevo");
+          }}
         >
           + Nuevo usuario
         </button>
@@ -269,6 +291,14 @@ function UsuariosListPage() {
             </tbody>
           </table>
         </div>
+      )}
+
+      {avisoSinPermiso && (
+        <AvisoDialog
+          title="Acción no permitida"
+          message="No tienes el rol de superadministrador y no puedes crear usuarios. Solicita la creación de la cuenta a un superadministrador."
+          onClose={() => setAvisoSinPermiso(false)}
+        />
       )}
 
       {usuarioCambiarEstado && (
