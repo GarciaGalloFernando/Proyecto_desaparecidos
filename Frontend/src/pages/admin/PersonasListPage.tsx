@@ -44,6 +44,7 @@ function PersonasListPage() {
   const [busqueda, setBusqueda] = useState("");
   const [filtroEstado, setFiltroEstado] = useState("");
   const [filtrodistrito, setFiltrodistrito] = useState("");
+  const [filtroSexo, setFiltroSexo] = useState("");
 
   const [menuAbiertoId, setMenuAbiertoId] = useState<string | null>(null);
 
@@ -89,14 +90,17 @@ function PersonasListPage() {
       const coincidedistrito =
         !filtrodistrito || persona.distrito === filtrodistrito;
 
-      return coincideTexto && coincideEstado && coincidedistrito;
+      const coincideSexo = !filtroSexo || persona.sexo === filtroSexo;
+
+      return coincideTexto && coincideEstado && coincidedistrito && coincideSexo;
     });
-  }, [personas, busqueda, filtroEstado, filtrodistrito]);
+  }, [personas, busqueda, filtroEstado, filtrodistrito, filtroSexo]);
 
   const limpiarFiltros = () => {
     setBusqueda("");
     setFiltroEstado("");
     setFiltrodistrito("");
+    setFiltroSexo("");
   };
 
   const confirmarEliminar = async () => {
@@ -200,6 +204,22 @@ function PersonasListPage() {
             {distritos.map((distrito) => (
               <option key={distrito} value={distrito}>
                 {distrito}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="search-field">
+          <label htmlFor="filtro-sexo">Sexo</label>
+          <select
+            id="filtro-sexo"
+            value={filtroSexo}
+            onChange={(event) => setFiltroSexo(event.target.value)}
+          >
+            <option value="">Todos</option>
+            {Object.entries(SEXO_LABEL).map(([valor, etiqueta]) => (
+              <option key={valor} value={valor}>
+                {etiqueta}
               </option>
             ))}
           </select>

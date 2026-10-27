@@ -27,6 +27,12 @@ const PASOS_PUBLICAR = [
   },
 ];
 
+const SEXOS = [
+  { value: "MASCULINO", label: "Masculino" },
+  { value: "FEMENINO", label: "Femenino" },
+  { value: "OTRO", label: "Otro" },
+];
+
 const ESTADOS = [
   { value: "No_localizada", label: "No localizada" },
   { value: "Desaparecida", label: "Desaparecida" },
@@ -41,6 +47,7 @@ function HomePage() {
   const [nombre, setNombre] = useState("");
   const [distrito, setDistrito] = useState("");
   const [edad, setEdad] = useState("");
+  const [sexo, setSexo] = useState("");
   const [estado, setEstado] = useState("");
 
   const [personas, setPersonas] = useState<Persona[]>([]);
@@ -66,6 +73,10 @@ function HomePage() {
 
       if (edad) {
         filtros.edad = edad;
+      }
+
+      if (sexo) {
+        filtros.sexo = sexo;
       }
 
       if (estado) {
@@ -108,6 +119,7 @@ function HomePage() {
     setNombre("");
     setDistrito("");
     setEdad("");
+    setSexo("");
     setEstado("");
 
     void getPersonas()
@@ -358,6 +370,33 @@ function HomePage() {
                   }
                   placeholder="Edad"
                 />
+              </div>
+
+              <div className="search-field">
+                <label htmlFor="sexo">
+                  Sexo
+                </label>
+
+                <select
+                  id="sexo"
+                  value={sexo}
+                  onChange={(event) =>
+                    setSexo(event.target.value)
+                  }
+                >
+                  <option value="">
+                    Todos
+                  </option>
+
+                  {SEXOS.map((item) => (
+                    <option
+                      key={item.value}
+                      value={item.value}
+                    >
+                      {item.label}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div className="search-field">
