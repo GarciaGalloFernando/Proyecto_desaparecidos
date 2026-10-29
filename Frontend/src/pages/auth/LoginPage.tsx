@@ -3,6 +3,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import LoginForm from "../../components/auth/LoginForm";
 import { authRepository } from "../../repositories/authRepository";
 import type { LoginCredentials } from "../../types/auth";
+import "../../logo-policia.css";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ function LoginPage() {
           aria-label="Ir al inicio"
         >
           <span className="brand-logo">
-            <img src="/logo.png" alt="" />
+            <img src="/logo-policia.jpeg" alt="Logo de la Policía Boliviana" />
           </span>
 
           <span>

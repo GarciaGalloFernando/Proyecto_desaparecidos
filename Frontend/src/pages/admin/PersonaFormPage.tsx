@@ -22,6 +22,7 @@ const FORM_INICIAL: PersonaFormData = {
   ciudad: "Sucre",
   zona: "",
   circunstancias: "",
+  vestimenta: "",
   ultimoLugarVisto: "",
   nombreReportante: "",
   documentoReportante: "",
@@ -93,6 +94,7 @@ function PersonaFormPage() {
           ciudad: persona.ciudad,
           zona: persona.zona,
           circunstancias: persona.circunstancias,
+          vestimenta: persona.vestimenta ?? "",
           ultimoLugarVisto: persona.ultimoLugarVisto ?? "",
           nombreReportante: persona.nombreReportante ?? "",
           documentoReportante: persona.documentoReportante ?? "",
@@ -396,13 +398,24 @@ function PersonaFormPage() {
               />
             </div>
 
-<div className="field-group admin-form-span-2">
+            <div className="field-group admin-form-span-2">
               <label htmlFor="ultimoLugarVisto">Último lugar donde fue vista/o</label>
               <input
                 id="ultimoLugarVisto"
                 type="text"
                 value={form.ultimoLugarVisto}
                 onChange={(event) => setCampo("ultimoLugarVisto", event.target.value)}
+              />
+            </div>
+
+            <div className="field-group admin-form-span-2">
+              <label htmlFor="vestimenta">Vestimenta</label>
+              <textarea
+                id="vestimenta"
+                rows={3}
+                placeholder="Ej.: polera azul, pantalón negro, zapatillas blancas, mochila roja"
+                value={form.vestimenta ?? ""}
+                onChange={(event) => setCampo("vestimenta", event.target.value)}
               />
             </div>
 

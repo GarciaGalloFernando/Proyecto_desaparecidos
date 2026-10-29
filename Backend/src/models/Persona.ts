@@ -30,6 +30,7 @@ const schema = new Schema({
   ciudad: { type: String, required: true, trim: true, default: "Sucre" },
   zona: { type: String, trim: true, default: "" },
   circunstancias: { type: String, trim: true, default: "" },
+  vestimenta: { type: String, trim: true, default: "" },
   ultimoLugarVisto: { type: String, trim: true, default: "" },
 
   nombreReportante: { type: String, required: true, trim: true },

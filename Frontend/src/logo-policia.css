@@ -1,0 +1,29 @@
+/* Logo de la Policía Boliviana en la ventana de acceso y en el panel administrativo */
+
+.auth-brand .brand-logo {
+  width: 78px;
+  height: 112px;
+  flex-shrink: 0;
+}
+
+.admin-brand .brand-logo {
+  width: 46px;
+  height: 66px;
+  flex-shrink: 0;
+}
+
+.auth-brand .brand-logo img,
+.admin-brand .brand-logo img {
+  object-fit: contain;
+}
+
+/* Estas dos zonas tienen fondo blanco: el texto de la marca debe ser oscuro */
+.auth-brand strong,
+.admin-brand strong {
+  color: var(--texto);
+}
+
+.auth-brand small,
+.admin-brand small {
+  color: var(--muted);
+}

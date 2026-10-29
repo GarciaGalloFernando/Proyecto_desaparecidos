@@ -1,5 +1,6 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { authRepository } from "../repositories/authRepository";
+import "../logo-policia.css";
 
 function AdminLayout() {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ function AdminLayout() {
           aria-label="Ir al inicio"
         >
           <span className="brand-logo">
-            <img src="/logo.png" alt="" />
+            <img src="/logo-policia.jpeg" alt="Logo de la Policía Boliviana" />
           </span>
 
           <span>

@@ -5,7 +5,7 @@ export type Persona = {
   sexo: "MASCULINO" | "FEMENINO" | "OTRO"; fechaNacimiento: string; edad: number;
   numeroDocumento?: string; nacionalidad: string; foto?: string;
   fechaDesaparicion: string; horaAproximada?: string; distrito: string; ciudad: string;
-  zona?: string; circunstancias?: string; ultimoLugarVisto?: string;
+  zona?: string; circunstancias?: string; vestimenta?: string; ultimoLugarVisto?: string;
   estado: "No_localizada" | "Desaparecida" | "encontrada_vida" | "encontrada_fallecida";
   nombreReportante?: string; contactoReportante?: string; correoReportante?: string;
   publicadoPor?: { nombre?: string } | null; fechaRegistro: string; fechaActualizacion: string;

@@ -1,0 +1,13 @@
+CORRECCIONES - Tarjeta azul del hero
+
+1) src/pages/HomePage.tsx
+   -> Reemplaza tu HomePage.tsx actual.
+   Corrige el JSX: "Información centralizada" y su descripcion ahora estan
+   DENTRO de .hero-card (antes sobraba un </div>). Tambien se corrigio "< span".
+
+2) src/styles/index.css
+   -> Es tu CSS completo con los cambios. Copialo sobre el archivo CSS
+      que usas actualmente (conserva el nombre de tu archivo original,
+      por ejemplo index.css, App.css o styles.css).
+   Cambios: tarjeta mas grande (grid 1.1fr / 0.9fr, padding y min-height),
+   linea separadora bajo el logo y textos ajustados.

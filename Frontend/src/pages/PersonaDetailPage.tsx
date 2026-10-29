@@ -229,6 +229,15 @@ function PersonaDetailPage() {
                       </div>
 
                       <div className="field-group">
+                        <label>Vestimenta</label>
+                        <p className="admin-detail-text">
+                          {persona.vestimenta?.trim()
+                            ? persona.vestimenta
+                            : "No disponible"}
+                        </p>
+                      </div>
+
+                      <div className="field-group">
                         <label>Circunstancias de la desaparición</label>
                         <p className="admin-detail-text">
                           {persona.circunstancias?.trim()

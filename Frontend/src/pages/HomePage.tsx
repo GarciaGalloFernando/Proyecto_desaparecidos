@@ -33,6 +33,13 @@ const SEXOS = [
   { value: "OTRO", label: "Otro" },
 ];
 
+const EMERGENCIAS = [
+  { numero: "110", nombre: "Radio Patrullas" },
+  { numero: "119", nombre: "Bomberos" },
+  { numero: "120", nombre: "PAC" },
+  { numero: "122", nombre: "FELCC" },
+];
+
 const ESTADOS = [
   { value: "No_localizada", label: "No localizada" },
   { value: "Desaparecida", label: "Desaparecida" },
@@ -151,12 +158,11 @@ function HomePage() {
             aria-label="Ir al inicio"
           >
             <span className="brand-logo">
-            <img src="/logo-blanco.png" alt="" />
-          </span>
+              <img src="/escudo-policia.png" alt="Escudo de la Policía Boliviana" />
+            </span>
 
             <span>
-              <strong>Personas Desaparecidas</strong>
-              <small>Sucre</small>
+              <strong>Policía Boliviana</strong>
             </span>
           </button>
 
@@ -225,8 +231,9 @@ function HomePage() {
               </h1>
 
               <p>
-                Consulta información sobre personas desaparecidas,
-                encontradas e identificadas en la ciudad de Sucre.
+                Cada búsqueda importa. 
+                Consulta los registros disponibles y ayúdanos a mantener viva la esperanza de reunir a las 
+                personas con sus familias.
               </p>
 
               <button
@@ -245,28 +252,27 @@ function HomePage() {
 
             <div className="hero-card">
 
-              <div className="hero-card-icon">
-                <svg
-                  viewBox="0 0 64 64"
-                  aria-hidden="true"
-                >
-                  <circle
-                    cx="28"
-                    cy="28"
-                    r="17"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="5"
-                  />
+              <div className="hero-card-brand">
+                <span className="hero-card-icon">
+                  <svg viewBox="0 0 96 96" aria-hidden="true">
+                    <defs>
+                      <clipPath id="lente">
+                        <circle cx="40" cy="40" r="26.5" />
+                      </clipPath>
+                    </defs>
+                    <circle cx="40" cy="40" r="30" fill="none" stroke="#FFB703" strokeWidth="7" />
+                    <line x1="62" y1="62" x2="87" y2="87" stroke="#FFB703" strokeWidth="10" strokeLinecap="round" />
+                    <g clipPath="url(#lente)" fill="#ffffff">
+                      <circle cx="40" cy="31" r="9.5" />
+                      <path d="M18 66 C18 49 28 43 40 43 C52 43 62 49 62 66 Z" />
+                    </g>
+                  </svg>
+                </span>
 
-                  <path
-                    d="M41 41L55 55"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="5"
-                    strokeLinecap="round"
-                  />
-                </svg>
+                <span className="hero-card-brand-text">
+                  <strong>Personas Desaparecidas</strong>
+                  <small>Sucre</small>
+                </span>
               </div>
 
               <h2>Información centralizada</h2>
@@ -652,13 +658,6 @@ function HomePage() {
               </a>
             </div>
 
-            <div className="how-notice" role="note">
-              <strong>Importante:</strong> este sistema no reemplaza la
-              denuncia oficial. Presenta la denuncia cuanto antes en la
-              FELCC o en la estación policial más cercana; no es necesario
-              esperar 24, 48 o 72 horas. En una emergencia, llama al 110.
-            </div>
-
           </div>
         </section>
 
@@ -684,10 +683,17 @@ function HomePage() {
               </p>
             </div>
 
-            <a className="btn information-cta" href="#buscar">
-              Buscar una persona
-              <span aria-hidden="true">→</span>
-            </a>
+            <div className="emergency-box">
+              <h3>EMERGENCIAS</h3>
+
+              <ul>
+                {EMERGENCIAS.map((item) => (
+                  <li key={item.numero}>
+                    {item.numero} - {item.nombre}
+                  </li>
+                ))}
+              </ul>
+            </div>
 
           </div>
         </section>

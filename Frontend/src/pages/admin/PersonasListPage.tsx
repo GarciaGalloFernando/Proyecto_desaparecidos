@@ -152,7 +152,7 @@ function PersonasListPage() {
           <h1>Personas registradas</h1>
           <p>
             Visualiza, registra, edita y actualiza el estado de las personas
-            desaparecidas. (Los registros se cargan directamente desde MongoDB a través del backend.)
+            desaparecidas. 
           </p>
         </div>
 
