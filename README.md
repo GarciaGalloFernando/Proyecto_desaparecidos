@@ -1,4 +1,4 @@
-# Personas Desaparecidas Bolivia
+# Personas Desaparecidas Sucre
 
 Plataforma React/Vite y API REST para la consulta y administración de personas desaparecidas. La API usa Express, TypeScript, MongoDB/Mongoose, Passport Local/JWT y bcrypt. Los archivos `Backend/data/*.json` se conservan solo como referencia histórica y **no se leen en tiempo de ejecución**.
 
