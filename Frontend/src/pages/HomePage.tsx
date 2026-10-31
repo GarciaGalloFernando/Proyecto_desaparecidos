@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { authRepository } from "../repositories/authRepository";
@@ -61,6 +61,9 @@ function HomePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  // Sección a la que hay que bajar cuando se llega desde la ficha de una persona
+  const destinoPendiente = useRef<string | null>(null);
+
   const usuario = authRepository.getCurrentUser();
 
   const cargarPersonas = async () => {
@@ -108,14 +111,30 @@ function HomePage() {
     void cargarPersonas();
   }, []);
 
-  // Al volver desde el detalle de una persona, ir directo a la sección indicada
+  // Al volver desde la ficha de una persona: se recuerda la sección elegida y se
+  // baja a ella cuando los resultados ya terminaron de cargar. Si se bajara antes,
+  // las tarjetas cargarían después y empujarían la página hacia los resultados.
   useEffect(() => {
-    const destino = (location.state as { irA?: string } | null)?.irA;
-    if (!destino) return;
+    const desdeEstado = (location.state as { irA?: string } | null)?.irA;
 
-    document.getElementById(destino)?.scrollIntoView({ block: "start" });
-    navigate(location.pathname, { replace: true, state: null });
-  }, [location.state, location.pathname, navigate]);
+    if (desdeEstado) {
+      destinoPendiente.current = desdeEstado;
+      navigate(location.pathname, { replace: true, state: null });
+      return;
+    }
+
+    if (loading || !destinoPendiente.current) return;
+
+    const destino = destinoPendiente.current;
+    destinoPendiente.current = null;
+
+    requestAnimationFrame(() => {
+      document.getElementById(destino)?.scrollIntoView({
+        block: "start",
+        behavior: "instant" as ScrollBehavior,
+      });
+    });
+  }, [loading, location.state, location.pathname, navigate]);
 
   const buscar = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -231,9 +250,9 @@ function HomePage() {
               </h1>
 
               <p>
-                Cada búsqueda importa. 
-                Consulta los registros disponibles y ayúdanos a mantener viva la esperanza de reunir a las 
-                personas con sus familias.
+                Cada búsqueda importa y la colaboración de todos puede marcar la diferencia. 
+                Consulta los registros disponibles, comparte esta información y ayúdanos 
+                a mantener viva la esperanza de reunir a las personas con sus familias.
               </p>
 
               <button

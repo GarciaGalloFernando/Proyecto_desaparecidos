@@ -78,6 +78,15 @@ function PersonaDetailPage() {
     navigate("/");
   };
 
+  // Desde la ficha, el menú lleva a la página de inicio y baja a la sección elegida
+  const irASeccion = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    seccion: string,
+  ) => {
+    event.preventDefault();
+    navigate("/", { state: { irA: seccion } });
+  };
+
   const nombreCompleto = persona
     ? [persona.nombre, persona.apellidoPaterno, persona.apellidoMaterno]
         .filter((parte) => parte && parte.trim())
@@ -98,14 +107,20 @@ function PersonaDetailPage() {
             aria-label="Ir al inicio"
           >
             <span className="brand-logo">
-            <img src="/logo-blanco.png" alt="" />
-          </span>
+              <img src="/escudo-policia.png" alt="Escudo de la Policía Boliviana" />
+            </span>
 
             <span>
-              <strong>Personas Desaparecidas</strong>
-              <small>Sucre</small>
+              <strong>Policía Boliviana</strong>
             </span>
           </button>
+
+          <nav className="main-nav">
+            <a href="/" onClick={(e) => irASeccion(e, "inicio")}>Inicio</a>
+            <a href="/#buscar" onClick={(e) => irASeccion(e, "buscar")}>Buscar personas</a>
+            <a href="/#como-publicar" onClick={(e) => irASeccion(e, "como-publicar")}>Cómo publicar</a>
+            <a href="/#informacion" onClick={(e) => irASeccion(e, "informacion")}>Información</a>
+          </nav>
 
           <div className="header-actions">
             {usuario ? (
